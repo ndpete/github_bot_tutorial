@@ -21,15 +21,15 @@ async def issue_opened_event(event, gh, *args, **kwargs):
 @router.register("pull_request", action="closed")
 async def pull_closed_event(event, gh, *args, **kwargs):
     if event.data['pull_request']['merged']:
-        url = event.data['issue']['comments_url']
-        author = event.data['issue']['user']['login']
+        url = event.data['pull_request']['comments_url']
+        author = event.data['pull_request']['user']['login']
         message = f"Thanks for the pull request @{author}. It has been merged."
         await gh.post(url, data={'body': message})
 
 
 @router.register("pull_request", action="opened")
 async def pull_opened_event(event, gh, *args, **kwargs):
-    url = event.data['issue']['issue_url']
+    url = event.data['pull_request']['issue_url']
     await gh.post(url, data={'labels': "pending-review"})
 
 
