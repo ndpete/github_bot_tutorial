@@ -20,7 +20,7 @@ async def issue_opened_event(event, gh, *args, **kwargs):
 
 @router.register("pull_request", action="closed")
 async def pull_closed_event(event, gh, *args, **kwargs):
-    if event.data['merged']:
+    if event.data['pull_request']['merged']:
         url = event.data['issue']['comments_url']
         author = event.data['issue']['user']['login']
         message = f"Thanks for the pull request @{author}. It has been merged."
