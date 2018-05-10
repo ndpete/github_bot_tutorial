@@ -30,7 +30,7 @@ async def pull_closed_event(event, gh, *args, **kwargs):
 @router.register("pull_request", action="opened")
 async def pull_opened_event(event, gh, *args, **kwargs):
     url = event.data['pull_request']['issue_url']
-    await gh.post(url, data={'labels': "pending-review"})
+    await gh.post(url, data={'labels': ["pending-review"]})
 
 
 async def main(request):
